@@ -54,7 +54,11 @@ sub prepare_document_name {
 sub prepare_file_name {
     my ( $document_name, $document_target_language, $ext ) = @_;
 
-    my $regexp = qr/_$document_target_language/;
+    # Remove the previeously added language suffix;
+    # Note that we're doing this in a case-insensitive manner
+    # as it is possible to create a lowercase language name,
+    # and it will be recognized by Smartcat.
+    my $regexp = qr/_$document_target_language/i;
     $document_name =~ s/(.*)$regexp/$1/;
 
     return $document_name . $ext;
